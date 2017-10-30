@@ -20,7 +20,9 @@ describe('Gift', () => {
 		beforeEach(() => {
 			gift.find('.input-person').simulate('change', { 
 				target: 
-					{value: 'Uncle'}
+					{
+						value: 'Uncle'
+					}
 			})
 		});
 
@@ -29,4 +31,21 @@ describe('Gift', () => {
 		})
 	});
 
-})
+	describe('when typing into the present input', () => {
+			const present = 'Golf Clubs';
+
+			beforeEach( () => {
+				gift.find('.input-present').simulate('change', {
+					target: {
+						value: present
+					}
+				})
+			});
+
+			it('updates the present in `state`', () => {
+				expect(gift.state().present).toEqual(present);
+			});
+
+	});
+
+});

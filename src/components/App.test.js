@@ -33,6 +33,10 @@ describe('App', () => {
 			expect (app.find('.gift-list').children().length).toEqual(1);
 		});
 
+        it('creates a Gift componment', () => {
+            expect(app.find('Gift').exists()).toBe(true);
+        })
+
 	});
 
 });
