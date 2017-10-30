@@ -1,6 +1,6 @@
-## Airbnb emzyme tdd / bdd
+## Jest with Emzyme TDD / BDD
 
-Just getting aquainted with emzyme with a very basic app.
+A simple app to try out jest with enzyme.
 
 To run tests:
 
