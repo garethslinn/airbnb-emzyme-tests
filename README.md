@@ -1,4 +1,4 @@
-## Jest with Emzyme TDD / BDD
+## Jest with Enzyme TDD / BDD
 
 A simple app to try out jest with enzyme.
 
