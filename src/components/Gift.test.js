@@ -8,4 +8,25 @@ describe('Gift', () => {
 	it('renders properly', () => {
 		expect(gift).toMatchSnapshot();
 	});
+
+	it('initialises a person and present in `state`', () => {
+		expect(gift.state()).toEqual({ person: '', present: '' })
+	});
+
+	describe('when typing into the person imput', () => {
+
+		const person = 'Uncle';
+
+		beforeEach(() => {
+			gift.find('.input-person').simulate('change', { 
+				target: 
+					{value: 'Uncle'}
+			})
+		});
+
+		it('updates the person in `state`', () => {
+			expect(gift.state().person).toEqual(person);
+		})
+	});
+
 })
