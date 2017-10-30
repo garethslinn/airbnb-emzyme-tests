@@ -1,42 +1,50 @@
+
 import React from 'react';
-import Adapter from '../setupTests';
 import { shallow } from 'enzyme';
 import App from './App';
 
-
 describe('App', () => {
-	const app = shallow(<App />);
+  const app = shallow(<App />);
+  
+  it('renders correctly', () => {
+    expect(app).toMatchSnapshot();
+  });
+  
+  it('initializes the `state` with an empty list of gifts', () => {
+    expect(app.state().gifts).toEqual([]);
+  });
 
-	it('renders correctly', () => {
-	   expect(app).toMatchSnapshot();
-	});
+  describe('when clicking the `add-gift` button', () => {
+    const id = 1;
 
-	it('initialises the `state` with an empty list of gifts', () => {
-	    expect(app.state().gifts).toEqual([]);
-	});
+    beforeEach(() => {
+      app.find('.btn-add').simulate('click');
+    });
 
-	describe('when clicking the `add-gift` button', () => {
+    afterEach(() => {
+      app.setState({ gifts: [] });
+    });
 
-		beforeEach( () => {
-			app.find('.btn-add').simulate('click');
-		});
+    it('adds a new gift to `state`', () => {
+      expect(app.state().gifts).toEqual([{ id }]);
+    });
+    
+    it('adds a new gift to the rendered list', () => {
+      expect(app.find('.gift-list').children().length).toEqual(1);
+    });
 
-		afterEach( () => {
-			app.setState({ gifts: [] });
-		});
+    it('creates a Gift component', () => {
+      expect(app.find('Gift').exists()).toBe(true);
+    });
 
-		it('adds a new gift to `state`', () => {
-		    expect (app.state().gifts).toEqual([{ id: 1 }]); 
-		});
+    describe('and the user wants to remove the added gift', () => {
+      beforeEach(() => {
+        app.instance().removeGift(id);
+      });
 
-		it('adds a new gift to the rendered list', () => {
-			expect (app.find('.gift-list').children().length).toEqual(1);
-		});
-
-        it('creates a Gift componment', () => {
-            expect(app.find('Gift').exists()).toBe(true);
-        })
-
-	});
-
+      it('removes the gift from `state`', () => {
+        expect(app.state().gifts).toEqual([]);
+      });
+    });
+  });
 });
